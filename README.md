@@ -1,24 +1,22 @@
-# README
+```
+$ docker-compose build --no-cache
+$ docker-compose run --rm web bin/setup
+$ docker-compose up  
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+以下にアクセスする。
 
-Things you may want to cover:
+http://localhost:3000/admin/order_units
 
-* Ruby version
+Basic認証が求められる画面に遷移できればOK。
 
-* System dependencies
+なお、QRコードをスマホで読み込んで動作確認する場合はngrokを使ってサーバを公開する必要がある。
 
-* Configuration
+```
+$ ngrok http 3000 
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+これで表示されたドメインを `config/environments/development.rb`の以下部分に設定。その上で`docker-compose restart web`を実行して反映。
+```rb
+config.hosts << "xxxxxxxxxxxxxxxxxxx.ngrok.io" 
+```
